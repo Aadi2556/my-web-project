@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        /* Dashboard Content */
+        #dashboard-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Course Cards */
+        .course-card {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .pending {
+            border-left: 5px solid #ffc107;
+            background-color: #fffcf5;
+        }
+
+        .approved {
+            border-left: 5px solid #28a745;
+            background-color: #f8fff9;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .payment-status {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Course Materials Section */
+        .materials-section {
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .materials-section h4 {
+            margin: 0 0 10px;
+            cursor: pointer;
+            color: #007bff;
+        }
+
+        .materials-list {
+            display: none;
+            list-style: none;
+            padding: 0;
+        }
+
+        .materials-list.active {
+            display: block;
+        }
+
+        .materials-list li {
+            margin: 5px 0;
+        }
+
+        .download-btn {
+            background: #007bff;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            background: #0056b3;
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .feedback-section h4 {
+            margin: 0 0 10px;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .feedback-list {
+            list-style: none;
+            padding: 0;
+            display: none;
+        }
+
+        .feedback-list.active {
+            display: block;
+        }
+
+        .feedback-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .feedback-comment {
+            margin-top: 5px;
+            color: #333;
+        }
+
+        .feedback-actions {
+            margin-top: 5px;
+        }
+
+        .edit-feedback-btn, .delete-feedback-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .edit-feedback-btn {
+            background: #ffc107;
+            color: white;
+        }
+
+        .edit-feedback-btn:hover {
+            background: #e0a800;
+        }
+
+        .delete-feedback-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .delete-feedback-btn:hover {
+            background: #c82333;
+        }
+
+        .feedback-form, .edit-feedback-form {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .feedback-form textarea, .edit-feedback-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .feedback-form select, .edit-feedback-form select {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .submit-feedback-btn, .update-feedback-btn, .cancel-edit-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-feedback-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .submit-feedback-btn:hover {
+            background: #218838;
+        }
+
+        .update-feedback-btn {
+            background: #007bff;
+            color: white;
+        }
+
+        .update-feedback-btn:hover {
+            background: #0056b3;
+        }
+
+        .cancel-edit-btn {
+            background: #6c757d;
+            color: white;
+            margin-left: 5px;
+        }
+
+        .cancel-edit-btn:hover {
+            background: #5a6268;
+        }
+
+        /* Buttons */
+        button {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .access-button {
+            background: #007bff;
+            color: white;
+        }
+
+        /* Payment Update Modal */
+        .payment-update-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Dashboard Actions */
+        .dashboard-actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        #errorMessage {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student Dashboard</h1>
+    <div id="dashboard-content">
+        <div id="welcomeMessage"></div>
+        <div id="user-info"></div>
+        
+        <h2>My Enrolled Courses</h2>
+        <div id="enrolled-courses">
+            <!-- Courses will be loaded here -->
+        </div>
+    </div>
+    
+    <div class="dashboard-actions">
+        <button type="button" id="deleteProfileBtn">Delete Profile</button>
+        <button type="button" id="logoutBtn">Logout</button>
+        <button type="button" id="editProfileBtn">Edit Profile</button>
+        <button type="button" id="enrollNewBtn">Enroll in New Courses</button>
+    </div>
+    <div id="errorMessage" style="color: red;"></div>
+
+    <script src="stddash.js"></script>
+</body>
+</html>

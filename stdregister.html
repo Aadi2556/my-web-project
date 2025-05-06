@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Register</title>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f9f9f9;
+          margin: 0;
+          padding: 20px;
+      }
+      h1 {
+          color: #333;
+          text-align: center;
+      }
+      form {
+          background: white;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          max-width: 400px;
+          margin: auto;
+      }
+      input[type="text"],
+      input[type="password"] {
+          width: 100%;
+          padding: 10px;
+          margin: 10px 0;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+      }
+      button {
+          background-color: #28a745;
+          color: white;
+          padding: 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          width: 100%;
+      }
+      button:hover {
+          background-color: #218838;
+      }
+      #result {
+          margin-top: 20px;
+          text-align: center;
+          color: #d9534f; /* Red color for error messages */
+      }
+  </style>
+</head>
+<body>
+  <h1>Student Register Form</h1>
+  <form>
+      <input type="text" id="input-1" placeholder="Email" required>
+      <input type="password" id="input-2" placeholder="Password" required>
+      <input type="text" id="input-3" placeholder="ID" required>
+      <input type="text" id="input-4" placeholder="Username" required>
+<button type="button" onclick="registerStudent()">Submit</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script src="stdregister.js"></script>
+</body>
+</html>

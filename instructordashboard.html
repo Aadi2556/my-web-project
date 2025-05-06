@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        #instructor-dashboard-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .course-card {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .pending {
+            border-left: 5px solid #ffc107;
+        }
+
+        .approved {
+            border-left: 5px solid #28a745;
+        }
+
+        .course-actions {
+            margin-top: 10px;
+        }
+
+        .feedback-section {
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .feedback-section h4 {
+            margin: 0 0 10px;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .feedback-list {
+            list-style: none;
+            padding: 0;
+            display: none;
+        }
+
+        .feedback-list.active {
+            display: block;
+        }
+
+        .feedback-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .feedback-comment {
+            margin-top: 5px;
+            color: #333;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Instructor Dashboard</h1>
+   
+    <div id="instructor-dashboard-content">
+        <div id="instructor-welcome-message"></div>
+        <div id="instructor-user-info"></div>
+        <div id="courses-list"></div>
+    </div>
+    
+    <button type="button" onclick="instructorDeleteProfile()">Delete Profile</button>
+    <button type="button" onclick="instructorLogout()">Logout</button>
+    <button type="button" onclick="instructorEdit()">Edit Profile</button>
+    <button type="button" onclick="createCourse()">Create new course</button>
+   
+    <div id="instructor-result"></div>
+
+    <script src="instructordashboard.js"></script>
+</body>
+</html>
